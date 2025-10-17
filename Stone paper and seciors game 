@@ -1,0 +1,57 @@
+import random
+
+def get_player_choice():
+    print("Who do you want to play as? Cat or Dog")
+    player = input("Your choice: ").strip().lower()
+    while player not in ["cat", "dog"]:
+        print("Invalid choice. Try again.")
+        player = input("Your choice: ").strip().lower()
+    return player
+
+def get_move(name):
+    print(f"{name.title()}, choose one: Rock, Paper or Scissors")
+    choice = input(f"{name.title()}'s move: ").strip().lower()
+    while choice not in ["rock", "paper", "scissors"]:
+        print("Invalid move. Try again.")
+        choice = input(f"{name.title()}'s move: ").strip().lower()
+    return choice
+
+def get_computer_move():
+    return random.choice(["rock", "paper", "scissors"])
+
+def determine_winner(cat_move, dog_move):
+    print(f"\nCat chose: {cat_move}")
+    print(f"Dog chose: {dog_move}\n")
+
+    if cat_move == dog_move:
+        return "It's a tie!"
+    elif (cat_move == "rock" and dog_move == "scissors") or \
+         (cat_move == "paper" and dog_move == "rock") or \
+         (cat_move == "scissors" and dog_move == "paper"):
+        return "Cat wins!"
+    else:
+        return "Dog wins!"
+
+def play_game():
+    print("Welcome to the Cat vs Dog Rock, Paper, Scissors Game!")
+    while True:
+        player = get_player_choice()
+        opponent = "dog" if player == "cat" else "cat"
+
+        player_move = get_move(player)
+        opponent_move = get_computer_move()
+
+        if player == "cat":
+            result = determine_winner(player_move, opponent_move)
+        else:
+            result = determine_winner(opponent_move, player_move)
+
+        print(result)
+
+        play_again = input("\nDo you want to play again? (yes/no): ").strip().lower()
+        if play_again != "yes":
+            print("Thanks for playing! Meow and Woof!")
+            break
+
+# Run the game
+play_game()
